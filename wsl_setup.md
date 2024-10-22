@@ -1,11 +1,11 @@
-# WSL and Parallel MODFLOW
+# WSL and Extended MODFLOW
 
 Instructions are provided here for setting up Ubuntu on the Windows Subsystem for Linux (WSL) to work with MODFLOW.
 
 ## 1. Installing WSL
 _Note that you need elevated privileges and sometimes your IT administrator to complete this step_
 
-On a Windows machine it is relatively easy to get parallel MODFLOW compiled and running in a WSL Ubuntu virtual machine.
+On a Windows machine it is relatively easy to get Extended MODFLOW compiled and running in a WSL Ubuntu virtual machine.
 
 Install a latest version of Ubuntu.
 ```
@@ -30,16 +30,22 @@ When typing "Ubuntu" in your Windows Search box, the installed version should be
 In the terminal, clone the class repo using the following command:
 
 ```
-git clone https://github.com/mjr-deltares/parallel-modflow-dsd23.git
+git clone https://github.com/jdhughes-usgs/modflow-dsd24.git
 ```
 
-## 3. Setting up parallel MODFLOW 6 and pixi environment
+## 3. Setting up extended MODFLOW 6 and pixi environment
 
-In order to set up parallel MODFLOW 6,  execute:
+In order to set up extended MODFLOW 6, install pixi:
 
 ```
-cd parallel-modflow-dsd23
-./pixi run install
+curl -fsSL https://pixi.sh/install.sh | bash
+```
+
+Additional information on installing pixi is available at [https://pixi.sh/dev/](https://pixi.sh/dev/). Next execute:
+
+```
+cd modflow-dsd24
+pixi run install
 ```
 
 This will take a bit of time, somewhere in between 15 minutes and an hour. A successful installation sequence concludes with the message:

@@ -8,36 +8,36 @@ platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64"]
 linux = "4.4.0"
 
 [tasks]
-initialize = "export PKG_CONFIG_PATH="
+initialize = "export PKG_CONFIG_PATH= && export PATH="
 install-flopy = "pip install https://github.com/modflowpy/flopy/zipball/develop"
+update-pc-files = { cmd = "python update_pc_files.py", cwd = "installation" }
 clone-modflow6 = "rm -rf modflow6/ && git clone https://github.com/MODFLOW-USGS/modflow6.git"
-setup-modflow6 = "cd modflow6 && meson setup builddir -Ddebug=false -Dparallel=true --prefix=$(pwd) --libdir=bin --wipe"
-install-modflow6 = "cd modflow6 && meson install -C builddir"
-test-modflow6 = "cd modflow6 && meson test --verbose --no-rebuild -C builddir"
-symlink = "ln -f modflow6/bin/mf6 .pixi/env/bin/mf6"
-test-installation = "cd installation && python test_installation.py"
+setup-modflow6 = { cmd = "rm -rf builddir && meson setup builddir -Ddebug=false -Dextended=true --prefix=$PIXI_PROJECT_ROOT/.pixi/envs/default/", cwd = "modflow6" }
+install-modflow6 = { cmd = "meson install -C builddir", cwd = "modflow6" }
+test-modflow6 = { cmd = "meson test --verbose --no-rebuild -C builddir", cwd = "modflow6" }
+test-installation = { cmd = "python test_installation.py", cwd = "installation" }
 clone-triangle = "rm -rf triangle/ && git clone https://github.com/MODFLOW-USGS/triangle.git"
-install-triangle = "cd triangle/src/ && gcc triangle.c -O1 -DNO_TIMER -o triangle -lm && cd ../../ && ln -f triangle/src/triangle .pixi/env/bin/triangle"
+install-triangle = { cmd = "clang triangle.c -O1 -Wno-deprecated-non-prototype -DNO_TIMER -o $PIXI_PROJECT_ROOT/.pixi/envs/default/bin/triangle -lm", cwd = "triangle/src/" }
 test-triangle = "which triangle"
 install = { depends_on = [
   "initialize",
   "install-flopy",
+  "update-pc-files",
   "clone-modflow6",
   "setup-modflow6",
   "install-modflow6",
   "test-modflow6",
-  "symlink",
 	"clone-triangle",
 	"install-triangle",
 	"test-triangle",
   "test-installation",
 ] }
-jupyter = "export PATH=.pixi/env/bin:$PATH && export PKG_CONFIG_PATH= && jupyter lab"
+jupyter = "export PATH=.pixi/envs/default/bin:.pixi/envs/default/lib:$PATH && export PKG_CONFIG_PATH= && jupyter lab"
 
 
 [dependencies]
 # required
-python = "<=3.11"
+python = "<=3.12"
 numpy = ">=1.15.0"
 matplotlib = ">=1.4.0"
 jupyterlab = "*"
@@ -47,7 +47,10 @@ pip = "*"
 pkg-config = "*"
 openmpi = "*"
 gfortran = "*"
+clang = "*"
 petsc = "*"
+libnetcdf = "*"
+netcdf-fortran = "*"
 meson = ">=1.1.0"
 ninja = "*"
 
@@ -55,7 +58,7 @@ ninja = "*"
 python-dateutil = ">=2.4.0"
 affine = "*"
 scipy = "*"
-pandas = "*"
+pandas = ">=2.2.0"
 pyshp = "*"
 rasterio = "*"
 fiona = "*"

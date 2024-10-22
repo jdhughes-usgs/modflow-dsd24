@@ -1,0 +1,37 @@
+name: modflow-dsd24 continuous integration
+on:
+  # run at 6 AM UTC every day
+  schedule:
+    - cron: '0 6 * * *'
+  push:
+    branches:
+      - main
+      - ci 
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    name: test pixi
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+
+      - name: Test pixi install
+        run: pixi run install

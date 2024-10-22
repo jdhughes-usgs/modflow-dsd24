@@ -1,10 +1,10 @@
-<img src="./snellius.jpg">
+<img src="./dsd-2024.jpg">
 
 # Course Description
-The purpose of this 1-day workshop is to teach participants how to use the new parallel capabilities in MODFLOW 6. The course will provide an overview of the MODFLOW program, the Python tools available for pre- and post-processing simulations, and the concepts for parallel computing with MODFLOW. It will include hands-on exercises to run example problems in parallel on a laptop computer. The used software and techniques are scalable and are intended to be applied on large-scale HPC infrastructures.
+The purpose of this 1-day workshop is to introduce participants to MODFLOW 6 and its growing set of (advanced) simulation capabilities. For each topic included in the training, there will be a short lecture on the underlying concepts and implementation followed by a live demonstration or exercise. These exercises will use the Python language, Jupyter Notebooks, and the FloPy Package to create, run, and post-process MODFLOW 6 simulations.
 
 # Getting Started
-Windows Subsystem for Linux (WSL) is a straight forward way for Windows users to get started using the parallel version of MODFLOW. Instructions for setting up WSL and compiling the parallel version of MODFLOW is provided in [wsl_setup.md](./wsl_setup.md).
+Windows Subsystem for Linux (WSL) is a straight forward way for Windows users to get started using the extended version of MODFLOW. Instructions for setting up WSL and compiling the extended version of MODFLOW is provided in [wsl_setup.md](./wsl_setup.md).
 
 If you are using the MacOS or Linux operating system you can follow the instructions in [wsl_setup.md](./wsl_setup.md) starting at the [Clone the class repo](./wsl_setup.md#Clone-the-class-repo).
 
@@ -12,13 +12,17 @@ If you are using the MacOS or Linux operating system you can follow the instruct
 * Welcome and Introductions
 * Overview of MODFLOW 6 and FloPy
 * Hands-on exercise I: setup a FloPy model and run
+* Extended MODFLOW 6: context and applications
 * == BREAK
-* Hands-on exercise I: postprocess and partition a model
-* Hands-on exercise I: running parallel MODFLOW 6
+* Extended MODFLOW 6: context and applications - wrap up
+* Hands-on exercise II: watershed GWF and GWT models
+* Aquifer storage and recharge
 * == LUNCH ==
-* Parallel MODFLOW 6: context and applications
-* Hands-on exercise II: build and partition the watershed
+* Aquifer storage and recharge - wrap up
+* Variable Density Flow
+* Hands-on exercise III: extended Henry problem with a tidal boundary
 * == BREAK ==
-* Hands-on exercise II: validate results and parallel performance
-* (Hands-on alternative: run your own model in parallel)
+* MODFLOW API: context and applications
+* Hands-on exercise IV: Alter the behavior of an existing MODFLOW package
 * Discussion and Wrap up
+
